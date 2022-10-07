@@ -1,0 +1,11 @@
+{
+  "name": "hello_world_node",
+  "version": "1.0.0",
+  "description": "hello world node app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Albert",
+  "license": "ISC"
+}
