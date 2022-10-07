@@ -6,13 +6,13 @@ const app = express();
 // Middleware
 
 // Simple request time logger
-app.use((req, res, next) => {
-	let d = Date(Date.now());
-	console.log("A new request received at " + d.toString());
-	next();
-});
+// app.use((req, res, next) => {
+// 	let d = Date(Date.now());
+// 	console.log("A new request received at " + d.toString());
+// 	next();
+// });
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
@@ -22,9 +22,9 @@ app.put("/about", (req, res) => {
 });
 
 // post request
-app.post("/register", (req, res) => {
-	res.send("You have registered a user");
-});
+// app.post("/register", (req, res) => {
+// 	res.send("You have registered a user");
+// });
 
 // delete request
 app.delete("/about", (req, res) => {
@@ -32,11 +32,11 @@ app.delete("/about", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-	res.send("Homepage! Hello World.");
+	res.sendFile(__dirname + "/index.html");
 });
 
 app.get("/about", (req, res) => {
-	res.send("About page. Nice.");
+	res.sendFile(__dirname + "/about.html");
 });
 
 app.get("/hobbies", (req, res) => {
@@ -46,6 +46,28 @@ app.get("/hobbies", (req, res) => {
 	// console.log("hobbies requested");
 });
 
+// Parameterized routes
+app.get("/users/:name", (req, res) => {
+	res.send("Hello " + req.params.name);
+});
+
+// Query parameters
+app.get("/users", (req, res) => {
+	res.send("My query params are: " + req.query.class + " and " + req.query.cohort);
+});
+
+//Redirection
+app.get("/signup", (req, res) => {
+	res.sendFile(__dirname + "/signup.html");
+});
+app.post("/signup", (req, res) => {
+	console.log(req.body);
+	res.redirect("/");
+});
+
+// app.use(express.urlencoded({ extended: true }));
+
+// Page not found handling
 app.get("*", (req, res) => {
 	res.send("<h1 style='text-align:center;font-size:30px;'>404! <br>🤣😂🤣</h1>");
 });
